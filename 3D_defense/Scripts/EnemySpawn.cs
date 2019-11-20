@@ -51,7 +51,7 @@ public class EnemySpawn : MonoBehaviour
     {
         var clone = Instantiate(Enemy_Spawn, Spawn_position.transform.position, Quaternion.identity);
         cnt += 1;
-        clone.GetComponent<EnemyData>().SetHp(1);
+        clone.GetComponent<EnemyData>().SetHp(10);
         Debug.Log(cnt);
     }
 

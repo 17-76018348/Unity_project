@@ -47,10 +47,10 @@ public class PlayerController : MonoBehaviour
             return -num;
         }
     }
-    void FakePlace()
+    void Position()
     {
         Spawn_Position = this.transform.position;
-        Debug.Log(Spawn_Position);
+
         Spawn_Position.y = 0.1f;
         x = Spawn_Position.x % 10;
         z = Spawn_Position.z % 10;
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 Spawn_Position.z = Spawn_Position.z - (z + 5);
             }
         }
-       
+
         else if (Abs(z) < 5)
         {
             if (z >= 0)
@@ -103,18 +103,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        pos_x = (((int)Spawn_Position.x)+35) / 10;
-        pos_z = (((int)Spawn_Position.z)+35) / 10;
- 
+        pos_x = (((int)Spawn_Position.x) + 35) / 10;
+        pos_z = (((int)Spawn_Position.z) + 35) / 10;
+
+    }
+    void FakePlace()
+    {
+        Position();
         if (array[pos_x, pos_z] == 0)
         {
             //var fak_clone = Instantiate(FakeTurret, Spawn_Position, Quaternion.identity);
             fakeTurret.transform.position = Spawn_Position;
-            array[pos_x, pos_z] = 1;
+            fake = true;
+
             //gold -= 3;
         }
-        Debug.Log(pos_x);
-        Debug.Log(pos_z);
 
         
     }
@@ -125,23 +128,26 @@ public class PlayerController : MonoBehaviour
         {
             FakePlace();
             Debug.Log("Asdf");
-            fake = true;
+
         }
     }
     public void Button2Click()
     {
-        if(gold>=3 && fake == true)
+        Position();
+        if(gold>=3 && fake == true && array[pos_x, pos_z]==0)
         {
             //Destroy(GameObject.Find("Capsule(Clone)"));
             fakeTurret.transform.position = new Vector3(0, -100, 0);
             var tur = Instantiate(Turret1, Spawn_Position, Quaternion.identity);
             fake = false;
             gold -= 3;
+            array[pos_x, pos_z] = 1;
         }
     }
     public void Button3Click()
     {
-        if (gold >= 3 && fake == true)
+        Position();
+        if (gold >= 3 && fake == true && array[pos_x,pos_z]==0)
         {
             //Destroy(GameObject.Find("Capsule(Clone)"));
             fakeTurret.transform.position = new Vector3(0, -100, 0);
